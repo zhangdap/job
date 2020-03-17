@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context 
+						   http://www.springframework.org/schema/context/spring-context.xsd
+	 http://www.springframework.org/schema/aop 
+                           http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/tx/spring-tx.xsd
+">
+	<!-- 数据库连接池，sqlSessionFactory，mapper扫描器 -->
+	<!-- 次文件之配置和数据库相关的内容 -->
+	<!-- 引入外部资源文件 -->
+	<!-- 外部资源文件只能引入一次 -->
+	<context:property-placeholder
+		location="classpath:db.properties" />
+
+	<!-- 配置的druid数据源 使用外部资源文件 -->
+	<bean id="dataSource"
+		class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="${jdbc.initialSize}" />
+	</bean>
+	
+	<!-- 配置sqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 配置mybaits配置文件的位置 -->
+		<property name="configLocation" value="classpath:SqlMapConfig.xml" />
+		<!-- 注入数据源 -->
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!-- Mapper代理的方式开发方式二，扫描包方式配置代理 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 配置Mapper接口 -->
+		<property name="basePackage" value="com.hsd.job.mapper" />
+	</bean>
+</beans>

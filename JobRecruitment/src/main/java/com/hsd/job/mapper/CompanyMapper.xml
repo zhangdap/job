@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsd.job.mapper.CompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.hsd.job.pojo.Company" >
+    <id column="CompanyId" property="companyid" jdbcType="INTEGER" />
+    <result column="CompanyName" property="companyname" jdbcType="VARCHAR" />
+    <result column="CompanyAddr" property="companyaddr" jdbcType="VARCHAR" />
+    <result column="CompanyPhone" property="companyphone" jdbcType="VARCHAR" />
+    <result column="CompanyEmail" property="companyemail" jdbcType="VARCHAR" />
+    <result column="CompanyScale" property="companyscale" jdbcType="VARCHAR" />
+    <result column="CompanyNet" property="companynet" jdbcType="VARCHAR" />
+    <result column="CompanyImages" property="companyimages" jdbcType="VARCHAR" />
+    <result column="CompanyVideo" property="companyvideo" jdbcType="VARCHAR" />
+    <result column="CompanyDesc" property="companydesc" jdbcType="VARCHAR" />
+    <result column="CompanyState" property="companystate" jdbcType="INTEGER" />
+    <result column="CompanyType" property="companytype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CompanyId, CompanyName, CompanyAddr, CompanyPhone, CompanyEmail, CompanyScale, CompanyNet, 
+    CompanyImages, CompanyVideo, CompanyDesc, CompanyState, CompanyType
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hsd.job.pojo.CompanyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from company
+    where CompanyId = #{companyid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from company
+    where CompanyId = #{companyid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hsd.job.pojo.CompanyExample" >
+    delete from company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hsd.job.pojo.Company" useGeneratedKeys="true" keyProperty="companyid" keyColumn="CompanyId" >
+  
+    insert into company (CompanyId, CompanyName, CompanyAddr, 
+      CompanyPhone, CompanyEmail, CompanyScale, 
+      CompanyNet, CompanyImages, CompanyVideo, 
+      CompanyDesc, CompanyState, CompanyType
+      )
+    values (#{companyid,jdbcType=INTEGER}, #{companyname,jdbcType=VARCHAR}, #{companyaddr,jdbcType=VARCHAR}, 
+      #{companyphone,jdbcType=VARCHAR}, #{companyemail,jdbcType=VARCHAR}, #{companyscale,jdbcType=VARCHAR}, 
+      #{companynet,jdbcType=VARCHAR}, #{companyimages,jdbcType=VARCHAR}, #{companyvideo,jdbcType=VARCHAR}, 
+      #{companydesc,jdbcType=VARCHAR}, #{companystate,jdbcType=INTEGER}, #{companytype,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hsd.job.pojo.Company" >
+    insert into company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="companyid != null" >
+        CompanyId,
+      </if>
+      <if test="companyname != null" >
+        CompanyName,
+      </if>
+      <if test="companyaddr != null" >
+        CompanyAddr,
+      </if>
+      <if test="companyphone != null" >
+        CompanyPhone,
+      </if>
+      <if test="companyemail != null" >
+        CompanyEmail,
+      </if>
+      <if test="companyscale != null" >
+        CompanyScale,
+      </if>
+      <if test="companynet != null" >
+        CompanyNet,
+      </if>
+      <if test="companyimages != null" >
+        CompanyImages,
+      </if>
+      <if test="companyvideo != null" >
+        CompanyVideo,
+      </if>
+      <if test="companydesc != null" >
+        CompanyDesc,
+      </if>
+      <if test="companystate != null" >
+        CompanyState,
+      </if>
+      <if test="companytype != null" >
+        CompanyType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="companyid != null" >
+        #{companyid,jdbcType=INTEGER},
+      </if>
+      <if test="companyname != null" >
+        #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="companyaddr != null" >
+        #{companyaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="companyphone != null" >
+        #{companyphone,jdbcType=VARCHAR},
+      </if>
+      <if test="companyemail != null" >
+        #{companyemail,jdbcType=VARCHAR},
+      </if>
+      <if test="companyscale != null" >
+        #{companyscale,jdbcType=VARCHAR},
+      </if>
+      <if test="companynet != null" >
+        #{companynet,jdbcType=VARCHAR},
+      </if>
+      <if test="companyimages != null" >
+        #{companyimages,jdbcType=VARCHAR},
+      </if>
+      <if test="companyvideo != null" >
+        #{companyvideo,jdbcType=VARCHAR},
+      </if>
+      <if test="companydesc != null" >
+        #{companydesc,jdbcType=VARCHAR},
+      </if>
+      <if test="companystate != null" >
+        #{companystate,jdbcType=INTEGER},
+      </if>
+      <if test="companytype != null" >
+        #{companytype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hsd.job.pojo.CompanyExample" resultType="java.lang.Integer" >
+    select count(*) from company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update company
+    <set >
+      <if test="record.companyid != null" >
+        CompanyId = #{record.companyid,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyname != null" >
+        CompanyName = #{record.companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyaddr != null" >
+        CompanyAddr = #{record.companyaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyphone != null" >
+        CompanyPhone = #{record.companyphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyemail != null" >
+        CompanyEmail = #{record.companyemail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyscale != null" >
+        CompanyScale = #{record.companyscale,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companynet != null" >
+        CompanyNet = #{record.companynet,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyimages != null" >
+        CompanyImages = #{record.companyimages,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyvideo != null" >
+        CompanyVideo = #{record.companyvideo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companydesc != null" >
+        CompanyDesc = #{record.companydesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companystate != null" >
+        CompanyState = #{record.companystate,jdbcType=INTEGER},
+      </if>
+      <if test="record.companytype != null" >
+        CompanyType = #{record.companytype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update company
+    set CompanyId = #{record.companyid,jdbcType=INTEGER},
+      CompanyName = #{record.companyname,jdbcType=VARCHAR},
+      CompanyAddr = #{record.companyaddr,jdbcType=VARCHAR},
+      CompanyPhone = #{record.companyphone,jdbcType=VARCHAR},
+      CompanyEmail = #{record.companyemail,jdbcType=VARCHAR},
+      CompanyScale = #{record.companyscale,jdbcType=VARCHAR},
+      CompanyNet = #{record.companynet,jdbcType=VARCHAR},
+      CompanyImages = #{record.companyimages,jdbcType=VARCHAR},
+      CompanyVideo = #{record.companyvideo,jdbcType=VARCHAR},
+      CompanyDesc = #{record.companydesc,jdbcType=VARCHAR},
+      CompanyState = #{record.companystate,jdbcType=INTEGER},
+      CompanyType = #{record.companytype,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsd.job.pojo.Company" >
+    update company
+    <set >
+      <if test="companyname != null" >
+        CompanyName = #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="companyaddr != null" >
+        CompanyAddr = #{companyaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="companyphone != null" >
+        CompanyPhone = #{companyphone,jdbcType=VARCHAR},
+      </if>
+      <if test="companyemail != null" >
+        CompanyEmail = #{companyemail,jdbcType=VARCHAR},
+      </if>
+      <if test="companyscale != null" >
+        CompanyScale = #{companyscale,jdbcType=VARCHAR},
+      </if>
+      <if test="companynet != null" >
+        CompanyNet = #{companynet,jdbcType=VARCHAR},
+      </if>
+      <if test="companyimages != null" >
+        CompanyImages = #{companyimages,jdbcType=VARCHAR},
+      </if>
+      <if test="companyvideo != null" >
+        CompanyVideo = #{companyvideo,jdbcType=VARCHAR},
+      </if>
+      <if test="companydesc != null" >
+        CompanyDesc = #{companydesc,jdbcType=VARCHAR},
+      </if>
+      <if test="companystate != null" >
+        CompanyState = #{companystate,jdbcType=INTEGER},
+      </if>
+      <if test="companytype != null" >
+        CompanyType = #{companytype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CompanyId = #{companyid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hsd.job.pojo.Company" >
+    update company
+    set CompanyName = #{companyname,jdbcType=VARCHAR},
+      CompanyAddr = #{companyaddr,jdbcType=VARCHAR},
+      CompanyPhone = #{companyphone,jdbcType=VARCHAR},
+      CompanyEmail = #{companyemail,jdbcType=VARCHAR},
+      CompanyScale = #{companyscale,jdbcType=VARCHAR},
+      CompanyNet = #{companynet,jdbcType=VARCHAR},
+      CompanyImages = #{companyimages,jdbcType=VARCHAR},
+      CompanyVideo = #{companyvideo,jdbcType=VARCHAR},
+      CompanyDesc = #{companydesc,jdbcType=VARCHAR},
+      CompanyState = #{companystate,jdbcType=INTEGER},
+      CompanyType = #{companytype,jdbcType=VARCHAR}
+    where CompanyId = #{companyid,jdbcType=INTEGER}
+  </update>
+</mapper>

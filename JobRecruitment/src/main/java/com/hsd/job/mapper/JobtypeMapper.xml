@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsd.job.mapper.JobtypeMapper" >
+  <resultMap id="BaseResultMap" type="com.hsd.job.pojo.Jobtype" >
+    <id column="JobTypeId" property="jobtypeid" jdbcType="INTEGER" />
+    <result column="JobTypeName" property="jobtypename" jdbcType="VARCHAR" />
+    <result column="JobTypeImg" property="jobtypeimg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    JobTypeId, JobTypeName, JobTypeImg
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hsd.job.pojo.JobtypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from jobtype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jobtype
+    where JobTypeId = #{jobtypeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jobtype
+    where JobTypeId = #{jobtypeid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hsd.job.pojo.JobtypeExample" >
+    delete from jobtype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hsd.job.pojo.Jobtype" >
+    insert into jobtype (JobTypeId, JobTypeName, JobTypeImg
+      )
+    values (#{jobtypeid,jdbcType=INTEGER}, #{jobtypename,jdbcType=VARCHAR}, #{jobtypeimg,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hsd.job.pojo.Jobtype" >
+    insert into jobtype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jobtypeid != null" >
+        JobTypeId,
+      </if>
+      <if test="jobtypename != null" >
+        JobTypeName,
+      </if>
+      <if test="jobtypeimg != null" >
+        JobTypeImg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jobtypeid != null" >
+        #{jobtypeid,jdbcType=INTEGER},
+      </if>
+      <if test="jobtypename != null" >
+        #{jobtypename,jdbcType=VARCHAR},
+      </if>
+      <if test="jobtypeimg != null" >
+        #{jobtypeimg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hsd.job.pojo.JobtypeExample" resultType="java.lang.Integer" >
+    select count(*) from jobtype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update jobtype
+    <set >
+      <if test="record.jobtypeid != null" >
+        JobTypeId = #{record.jobtypeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.jobtypename != null" >
+        JobTypeName = #{record.jobtypename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobtypeimg != null" >
+        JobTypeImg = #{record.jobtypeimg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update jobtype
+    set JobTypeId = #{record.jobtypeid,jdbcType=INTEGER},
+      JobTypeName = #{record.jobtypename,jdbcType=VARCHAR},
+      JobTypeImg = #{record.jobtypeimg,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsd.job.pojo.Jobtype" >
+    update jobtype
+    <set >
+      <if test="jobtypename != null" >
+        JobTypeName = #{jobtypename,jdbcType=VARCHAR},
+      </if>
+      <if test="jobtypeimg != null" >
+        JobTypeImg = #{jobtypeimg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where JobTypeId = #{jobtypeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hsd.job.pojo.Jobtype" >
+    update jobtype
+    set JobTypeName = #{jobtypename,jdbcType=VARCHAR},
+      JobTypeImg = #{jobtypeimg,jdbcType=VARCHAR}
+    where JobTypeId = #{jobtypeid,jdbcType=INTEGER}
+  </update>
+</mapper>

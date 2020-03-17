@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsd.job.mapper.JobMapper" >
+  <resultMap id="BaseResultMap" type="com.hsd.job.pojo.Job" >
+    <id column="JobId" property="jobid" jdbcType="INTEGER" />
+    <result column="JobName" property="jobname" jdbcType="VARCHAR" />
+    <result column="JobAddr" property="jobaddr" jdbcType="VARCHAR" />
+    <result column="JobPublishTime" property="jobpublishtime" jdbcType="TIMESTAMP" />
+    <result column="JobSarary" property="jobsarary" jdbcType="VARCHAR" />
+    <result column="JobDesc" property="jobdesc" jdbcType="VARCHAR" />
+    <result column="JobRequirement" property="jobrequirement" jdbcType="VARCHAR" />
+    <result column="JobEducationAndExper" property="jobeducationandexper" jdbcType="VARCHAR" />
+    <result column="JobProfit" property="jobprofit" jdbcType="VARCHAR" />
+    <result column="JobCost" property="jobcost" jdbcType="INTEGER" />
+    <result column="JobState" property="jobstate" jdbcType="INTEGER" />
+    <result column="Jobtype" property="jobtype" jdbcType="INTEGER" />
+    <result column="JobPublishUserId" property="jobpublishuserid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    JobId, JobName, JobAddr, JobPublishTime, JobSarary, JobDesc, JobRequirement, JobEducationAndExper, 
+    JobProfit, JobCost, JobState, Jobtype, JobPublishUserId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hsd.job.pojo.JobExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from job
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from job
+    where JobId = #{jobid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from job
+    where JobId = #{jobid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hsd.job.pojo.JobExample" >
+    delete from job
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hsd.job.pojo.Job" >
+    insert into job (JobId, JobName, JobAddr, 
+      JobPublishTime, JobSarary, JobDesc, 
+      JobRequirement, JobEducationAndExper, JobProfit, 
+      JobCost, JobState, Jobtype, 
+      JobPublishUserId)
+    values (#{jobid,jdbcType=INTEGER}, #{jobname,jdbcType=VARCHAR}, #{jobaddr,jdbcType=VARCHAR}, 
+      #{jobpublishtime,jdbcType=TIMESTAMP}, #{jobsarary,jdbcType=VARCHAR}, #{jobdesc,jdbcType=VARCHAR}, 
+      #{jobrequirement,jdbcType=VARCHAR}, #{jobeducationandexper,jdbcType=VARCHAR}, #{jobprofit,jdbcType=VARCHAR}, 
+      #{jobcost,jdbcType=INTEGER}, #{jobstate,jdbcType=INTEGER}, #{jobtype,jdbcType=INTEGER}, 
+      #{jobpublishuserid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hsd.job.pojo.Job" >
+    insert into job
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jobid != null" >
+        JobId,
+      </if>
+      <if test="jobname != null" >
+        JobName,
+      </if>
+      <if test="jobaddr != null" >
+        JobAddr,
+      </if>
+      <if test="jobpublishtime != null" >
+        JobPublishTime,
+      </if>
+      <if test="jobsarary != null" >
+        JobSarary,
+      </if>
+      <if test="jobdesc != null" >
+        JobDesc,
+      </if>
+      <if test="jobrequirement != null" >
+        JobRequirement,
+      </if>
+      <if test="jobeducationandexper != null" >
+        JobEducationAndExper,
+      </if>
+      <if test="jobprofit != null" >
+        JobProfit,
+      </if>
+      <if test="jobcost != null" >
+        JobCost,
+      </if>
+      <if test="jobstate != null" >
+        JobState,
+      </if>
+      <if test="jobtype != null" >
+        Jobtype,
+      </if>
+      <if test="jobpublishuserid != null" >
+        JobPublishUserId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jobid != null" >
+        #{jobid,jdbcType=INTEGER},
+      </if>
+      <if test="jobname != null" >
+        #{jobname,jdbcType=VARCHAR},
+      </if>
+      <if test="jobaddr != null" >
+        #{jobaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="jobpublishtime != null" >
+        #{jobpublishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jobsarary != null" >
+        #{jobsarary,jdbcType=VARCHAR},
+      </if>
+      <if test="jobdesc != null" >
+        #{jobdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="jobrequirement != null" >
+        #{jobrequirement,jdbcType=VARCHAR},
+      </if>
+      <if test="jobeducationandexper != null" >
+        #{jobeducationandexper,jdbcType=VARCHAR},
+      </if>
+      <if test="jobprofit != null" >
+        #{jobprofit,jdbcType=VARCHAR},
+      </if>
+      <if test="jobcost != null" >
+        #{jobcost,jdbcType=INTEGER},
+      </if>
+      <if test="jobstate != null" >
+        #{jobstate,jdbcType=INTEGER},
+      </if>
+      <if test="jobtype != null" >
+        #{jobtype,jdbcType=INTEGER},
+      </if>
+      <if test="jobpublishuserid != null" >
+        #{jobpublishuserid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hsd.job.pojo.JobExample" resultType="java.lang.Integer" >
+    select count(*) from job
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update job
+    <set >
+      <if test="record.jobid != null" >
+        JobId = #{record.jobid,jdbcType=INTEGER},
+      </if>
+      <if test="record.jobname != null" >
+        JobName = #{record.jobname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobaddr != null" >
+        JobAddr = #{record.jobaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobpublishtime != null" >
+        JobPublishTime = #{record.jobpublishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.jobsarary != null" >
+        JobSarary = #{record.jobsarary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobdesc != null" >
+        JobDesc = #{record.jobdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobrequirement != null" >
+        JobRequirement = #{record.jobrequirement,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobeducationandexper != null" >
+        JobEducationAndExper = #{record.jobeducationandexper,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobprofit != null" >
+        JobProfit = #{record.jobprofit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobcost != null" >
+        JobCost = #{record.jobcost,jdbcType=INTEGER},
+      </if>
+      <if test="record.jobstate != null" >
+        JobState = #{record.jobstate,jdbcType=INTEGER},
+      </if>
+      <if test="record.jobtype != null" >
+        Jobtype = #{record.jobtype,jdbcType=INTEGER},
+      </if>
+      <if test="record.jobpublishuserid != null" >
+        JobPublishUserId = #{record.jobpublishuserid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update job
+    set JobId = #{record.jobid,jdbcType=INTEGER},
+      JobName = #{record.jobname,jdbcType=VARCHAR},
+      JobAddr = #{record.jobaddr,jdbcType=VARCHAR},
+      JobPublishTime = #{record.jobpublishtime,jdbcType=TIMESTAMP},
+      JobSarary = #{record.jobsarary,jdbcType=VARCHAR},
+      JobDesc = #{record.jobdesc,jdbcType=VARCHAR},
+      JobRequirement = #{record.jobrequirement,jdbcType=VARCHAR},
+      JobEducationAndExper = #{record.jobeducationandexper,jdbcType=VARCHAR},
+      JobProfit = #{record.jobprofit,jdbcType=VARCHAR},
+      JobCost = #{record.jobcost,jdbcType=INTEGER},
+      JobState = #{record.jobstate,jdbcType=INTEGER},
+      Jobtype = #{record.jobtype,jdbcType=INTEGER},
+      JobPublishUserId = #{record.jobpublishuserid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsd.job.pojo.Job" >
+    update job
+    <set >
+      <if test="jobname != null" >
+        JobName = #{jobname,jdbcType=VARCHAR},
+      </if>
+      <if test="jobaddr != null" >
+        JobAddr = #{jobaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="jobpublishtime != null" >
+        JobPublishTime = #{jobpublishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jobsarary != null" >
+        JobSarary = #{jobsarary,jdbcType=VARCHAR},
+      </if>
+      <if test="jobdesc != null" >
+        JobDesc = #{jobdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="jobrequirement != null" >
+        JobRequirement = #{jobrequirement,jdbcType=VARCHAR},
+      </if>
+      <if test="jobeducationandexper != null" >
+        JobEducationAndExper = #{jobeducationandexper,jdbcType=VARCHAR},
+      </if>
+      <if test="jobprofit != null" >
+        JobProfit = #{jobprofit,jdbcType=VARCHAR},
+      </if>
+      <if test="jobcost != null" >
+        JobCost = #{jobcost,jdbcType=INTEGER},
+      </if>
+      <if test="jobstate != null" >
+        JobState = #{jobstate,jdbcType=INTEGER},
+      </if>
+      <if test="jobtype != null" >
+        Jobtype = #{jobtype,jdbcType=INTEGER},
+      </if>
+      <if test="jobpublishuserid != null" >
+        JobPublishUserId = #{jobpublishuserid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where JobId = #{jobid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hsd.job.pojo.Job" >
+    update job
+    set JobName = #{jobname,jdbcType=VARCHAR},
+      JobAddr = #{jobaddr,jdbcType=VARCHAR},
+      JobPublishTime = #{jobpublishtime,jdbcType=TIMESTAMP},
+      JobSarary = #{jobsarary,jdbcType=VARCHAR},
+      JobDesc = #{jobdesc,jdbcType=VARCHAR},
+      JobRequirement = #{jobrequirement,jdbcType=VARCHAR},
+      JobEducationAndExper = #{jobeducationandexper,jdbcType=VARCHAR},
+      JobProfit = #{jobprofit,jdbcType=VARCHAR},
+      JobCost = #{jobcost,jdbcType=INTEGER},
+      JobState = #{jobstate,jdbcType=INTEGER},
+      Jobtype = #{jobtype,jdbcType=INTEGER},
+      JobPublishUserId = #{jobpublishuserid,jdbcType=INTEGER}
+    where JobId = #{jobid,jdbcType=INTEGER}
+  </update>
+</mapper>

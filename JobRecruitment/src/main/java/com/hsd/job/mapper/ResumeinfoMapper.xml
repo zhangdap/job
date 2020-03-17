@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsd.job.mapper.ResumeinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hsd.job.pojo.Resumeinfo" >
+    <id column="ResumeId" property="resumeid" jdbcType="INTEGER" />
+    <result column="ResumeFileName" property="resumefilename" jdbcType="VARCHAR" />
+    <result column="ResumeType" property="resumetype" jdbcType="INTEGER" />
+    <result column="UserId" property="userid" jdbcType="INTEGER" />
+    <result column="ResumeUrl" property="resumeurl" jdbcType="VARCHAR" />
+    <result column="ResumeUserName" property="resumeusername" jdbcType="VARCHAR" />
+    <result column="ResumeUserBirthday" property="resumeuserbirthday" jdbcType="DATE" />
+    <result column="ResumeUseState" property="resumeusestate" jdbcType="VARCHAR" />
+    <result column="ResumeUserExperience" property="resumeuserexperience" jdbcType="VARCHAR" />
+    <result column="ResumeUserSalary" property="resumeusersalary" jdbcType="VARCHAR" />
+    <result column="ResumeUserGender" property="resumeusergender" jdbcType="INTEGER" />
+    <result column="ResumeUserQualification" property="resumeuserqualification" jdbcType="VARCHAR" />
+    <result column="ResumeUserEducation" property="resumeusereducation" jdbcType="VARCHAR" />
+    <result column="ResumeUserWork" property="resumeuserwork" jdbcType="VARCHAR" />
+    <result column="ResumeUserSkill" property="resumeuserskill" jdbcType="VARCHAR" />
+    <result column="ResumeUserSpecial" property="resumeuserspecial" jdbcType="VARCHAR" />
+    <result column="ResumeUserConnect" property="resumeuserconnect" jdbcType="VARCHAR" />
+    <result column="ResumeUserDesc" property="resumeuserdesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ResumeId, ResumeFileName, ResumeType, UserId, ResumeUrl, ResumeUserName, ResumeUserBirthday, 
+    ResumeUseState, ResumeUserExperience, ResumeUserSalary, ResumeUserGender, ResumeUserQualification, 
+    ResumeUserEducation, ResumeUserWork, ResumeUserSkill, ResumeUserSpecial, ResumeUserConnect, 
+    ResumeUserDesc
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hsd.job.pojo.ResumeinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from resumeinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from resumeinfo
+    where ResumeId = #{resumeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from resumeinfo
+    where ResumeId = #{resumeid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hsd.job.pojo.ResumeinfoExample" >
+    delete from resumeinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hsd.job.pojo.Resumeinfo" >
+    insert into resumeinfo (ResumeId, ResumeFileName, ResumeType, 
+      UserId, ResumeUrl, ResumeUserName, 
+      ResumeUserBirthday, ResumeUseState, ResumeUserExperience, 
+      ResumeUserSalary, ResumeUserGender, ResumeUserQualification, 
+      ResumeUserEducation, ResumeUserWork, ResumeUserSkill, 
+      ResumeUserSpecial, ResumeUserConnect, ResumeUserDesc
+      )
+    values (#{resumeid,jdbcType=INTEGER}, #{resumefilename,jdbcType=VARCHAR}, #{resumetype,jdbcType=INTEGER}, 
+      #{userid,jdbcType=INTEGER}, #{resumeurl,jdbcType=VARCHAR}, #{resumeusername,jdbcType=VARCHAR}, 
+      #{resumeuserbirthday,jdbcType=DATE}, #{resumeusestate,jdbcType=VARCHAR}, #{resumeuserexperience,jdbcType=VARCHAR}, 
+      #{resumeusersalary,jdbcType=VARCHAR}, #{resumeusergender,jdbcType=INTEGER}, #{resumeuserqualification,jdbcType=VARCHAR}, 
+      #{resumeusereducation,jdbcType=VARCHAR}, #{resumeuserwork,jdbcType=VARCHAR}, #{resumeuserskill,jdbcType=VARCHAR}, 
+      #{resumeuserspecial,jdbcType=VARCHAR}, #{resumeuserconnect,jdbcType=VARCHAR}, #{resumeuserdesc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hsd.job.pojo.Resumeinfo" >
+    insert into resumeinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resumeid != null" >
+        ResumeId,
+      </if>
+      <if test="resumefilename != null" >
+        ResumeFileName,
+      </if>
+      <if test="resumetype != null" >
+        ResumeType,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="resumeurl != null" >
+        ResumeUrl,
+      </if>
+      <if test="resumeusername != null" >
+        ResumeUserName,
+      </if>
+      <if test="resumeuserbirthday != null" >
+        ResumeUserBirthday,
+      </if>
+      <if test="resumeusestate != null" >
+        ResumeUseState,
+      </if>
+      <if test="resumeuserexperience != null" >
+        ResumeUserExperience,
+      </if>
+      <if test="resumeusersalary != null" >
+        ResumeUserSalary,
+      </if>
+      <if test="resumeusergender != null" >
+        ResumeUserGender,
+      </if>
+      <if test="resumeuserqualification != null" >
+        ResumeUserQualification,
+      </if>
+      <if test="resumeusereducation != null" >
+        ResumeUserEducation,
+      </if>
+      <if test="resumeuserwork != null" >
+        ResumeUserWork,
+      </if>
+      <if test="resumeuserskill != null" >
+        ResumeUserSkill,
+      </if>
+      <if test="resumeuserspecial != null" >
+        ResumeUserSpecial,
+      </if>
+      <if test="resumeuserconnect != null" >
+        ResumeUserConnect,
+      </if>
+      <if test="resumeuserdesc != null" >
+        ResumeUserDesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resumeid != null" >
+        #{resumeid,jdbcType=INTEGER},
+      </if>
+      <if test="resumefilename != null" >
+        #{resumefilename,jdbcType=VARCHAR},
+      </if>
+      <if test="resumetype != null" >
+        #{resumetype,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="resumeurl != null" >
+        #{resumeurl,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeusername != null" >
+        #{resumeusername,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeuserbirthday != null" >
+        #{resumeuserbirthday,jdbcType=DATE},
+      </if>
+      <if test="resumeusestate != null" >
+        #{resumeusestate,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeuserexperience != null" >
+        #{resumeuserexperience,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeusersalary != null" >
+        #{resumeusersalary,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeusergender != null" >
+        #{resumeusergender,jdbcType=INTEGER},
+      </if>
+      <if test="resumeuserqualification != null" >
+        #{resumeuserqualification,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeusereducation != null" >
+        #{resumeusereducation,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeuserwork != null" >
+        #{resumeuserwork,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeuserskill != null" >
+        #{resumeuserskill,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeuserspecial != null" >
+        #{resumeuserspecial,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeuserconnect != null" >
+        #{resumeuserconnect,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeuserdesc != null" >
+        #{resumeuserdesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hsd.job.pojo.ResumeinfoExample" resultType="java.lang.Integer" >
+    select count(*) from resumeinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update resumeinfo
+    <set >
+      <if test="record.resumeid != null" >
+        ResumeId = #{record.resumeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.resumefilename != null" >
+        ResumeFileName = #{record.resumefilename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resumetype != null" >
+        ResumeType = #{record.resumetype,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        UserId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.resumeurl != null" >
+        ResumeUrl = #{record.resumeurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resumeusername != null" >
+        ResumeUserName = #{record.resumeusername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resumeuserbirthday != null" >
+        ResumeUserBirthday = #{record.resumeuserbirthday,jdbcType=DATE},
+      </if>
+      <if test="record.resumeusestate != null" >
+        ResumeUseState = #{record.resumeusestate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resumeuserexperience != null" >
+        ResumeUserExperience = #{record.resumeuserexperience,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resumeusersalary != null" >
+        ResumeUserSalary = #{record.resumeusersalary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resumeusergender != null" >
+        ResumeUserGender = #{record.resumeusergender,jdbcType=INTEGER},
+      </if>
+      <if test="record.resumeuserqualification != null" >
+        ResumeUserQualification = #{record.resumeuserqualification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resumeusereducation != null" >
+        ResumeUserEducation = #{record.resumeusereducation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resumeuserwork != null" >
+        ResumeUserWork = #{record.resumeuserwork,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resumeuserskill != null" >
+        ResumeUserSkill = #{record.resumeuserskill,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resumeuserspecial != null" >
+        ResumeUserSpecial = #{record.resumeuserspecial,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resumeuserconnect != null" >
+        ResumeUserConnect = #{record.resumeuserconnect,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resumeuserdesc != null" >
+        ResumeUserDesc = #{record.resumeuserdesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update resumeinfo
+    set ResumeId = #{record.resumeid,jdbcType=INTEGER},
+      ResumeFileName = #{record.resumefilename,jdbcType=VARCHAR},
+      ResumeType = #{record.resumetype,jdbcType=INTEGER},
+      UserId = #{record.userid,jdbcType=INTEGER},
+      ResumeUrl = #{record.resumeurl,jdbcType=VARCHAR},
+      ResumeUserName = #{record.resumeusername,jdbcType=VARCHAR},
+      ResumeUserBirthday = #{record.resumeuserbirthday,jdbcType=DATE},
+      ResumeUseState = #{record.resumeusestate,jdbcType=VARCHAR},
+      ResumeUserExperience = #{record.resumeuserexperience,jdbcType=VARCHAR},
+      ResumeUserSalary = #{record.resumeusersalary,jdbcType=VARCHAR},
+      ResumeUserGender = #{record.resumeusergender,jdbcType=INTEGER},
+      ResumeUserQualification = #{record.resumeuserqualification,jdbcType=VARCHAR},
+      ResumeUserEducation = #{record.resumeusereducation,jdbcType=VARCHAR},
+      ResumeUserWork = #{record.resumeuserwork,jdbcType=VARCHAR},
+      ResumeUserSkill = #{record.resumeuserskill,jdbcType=VARCHAR},
+      ResumeUserSpecial = #{record.resumeuserspecial,jdbcType=VARCHAR},
+      ResumeUserConnect = #{record.resumeuserconnect,jdbcType=VARCHAR},
+      ResumeUserDesc = #{record.resumeuserdesc,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsd.job.pojo.Resumeinfo" >
+    update resumeinfo
+    <set >
+      <if test="resumefilename != null" >
+        ResumeFileName = #{resumefilename,jdbcType=VARCHAR},
+      </if>
+      <if test="resumetype != null" >
+        ResumeType = #{resumetype,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="resumeurl != null" >
+        ResumeUrl = #{resumeurl,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeusername != null" >
+        ResumeUserName = #{resumeusername,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeuserbirthday != null" >
+        ResumeUserBirthday = #{resumeuserbirthday,jdbcType=DATE},
+      </if>
+      <if test="resumeusestate != null" >
+        ResumeUseState = #{resumeusestate,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeuserexperience != null" >
+        ResumeUserExperience = #{resumeuserexperience,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeusersalary != null" >
+        ResumeUserSalary = #{resumeusersalary,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeusergender != null" >
+        ResumeUserGender = #{resumeusergender,jdbcType=INTEGER},
+      </if>
+      <if test="resumeuserqualification != null" >
+        ResumeUserQualification = #{resumeuserqualification,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeusereducation != null" >
+        ResumeUserEducation = #{resumeusereducation,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeuserwork != null" >
+        ResumeUserWork = #{resumeuserwork,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeuserskill != null" >
+        ResumeUserSkill = #{resumeuserskill,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeuserspecial != null" >
+        ResumeUserSpecial = #{resumeuserspecial,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeuserconnect != null" >
+        ResumeUserConnect = #{resumeuserconnect,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeuserdesc != null" >
+        ResumeUserDesc = #{resumeuserdesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ResumeId = #{resumeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hsd.job.pojo.Resumeinfo" >
+    update resumeinfo
+    set ResumeFileName = #{resumefilename,jdbcType=VARCHAR},
+      ResumeType = #{resumetype,jdbcType=INTEGER},
+      UserId = #{userid,jdbcType=INTEGER},
+      ResumeUrl = #{resumeurl,jdbcType=VARCHAR},
+      ResumeUserName = #{resumeusername,jdbcType=VARCHAR},
+      ResumeUserBirthday = #{resumeuserbirthday,jdbcType=DATE},
+      ResumeUseState = #{resumeusestate,jdbcType=VARCHAR},
+      ResumeUserExperience = #{resumeuserexperience,jdbcType=VARCHAR},
+      ResumeUserSalary = #{resumeusersalary,jdbcType=VARCHAR},
+      ResumeUserGender = #{resumeusergender,jdbcType=INTEGER},
+      ResumeUserQualification = #{resumeuserqualification,jdbcType=VARCHAR},
+      ResumeUserEducation = #{resumeusereducation,jdbcType=VARCHAR},
+      ResumeUserWork = #{resumeuserwork,jdbcType=VARCHAR},
+      ResumeUserSkill = #{resumeuserskill,jdbcType=VARCHAR},
+      ResumeUserSpecial = #{resumeuserspecial,jdbcType=VARCHAR},
+      ResumeUserConnect = #{resumeuserconnect,jdbcType=VARCHAR},
+      ResumeUserDesc = #{resumeuserdesc,jdbcType=VARCHAR}
+    where ResumeId = #{resumeid,jdbcType=INTEGER}
+  </update>
+</mapper>

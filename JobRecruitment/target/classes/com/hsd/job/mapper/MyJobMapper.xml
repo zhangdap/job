@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hsd.job.mapper.MyJobMapper">
+	<select id="conditionQueryJobs" parameterType="com.hsd.job.pojo.Job"
+		resultType="com.hsd.job.pojo.Job">
+		SELECT *
+		FROM
+		job
+		WHERE
+		<if test="jobaddr != null">
+			JobAddr like '%${jobaddr}%' and
+		</if>
+		<if test="jobtype != null">
+			JobType=#{jobtype}
+		</if>
+	</select>
+	<select id="queryCompanyById" parameterType="int"
+		resultType="com.hsd.job.pojo.Company">
+		select *
+		FROM
+		company
+		where
+		companyid=#{id}
+	</select>
+	<update id="updateCompanyById" parameterType="com.hsd.job.pojo.Company">
+		UPDATE company SET
+		<if test="companyname != null">
+			companyname=#{companyname},
+		</if>
+		<if test="companyaddr != null">
+			companyaddr=#{companyaddr},
+		</if>
+		<if test="companyphone != null">
+			companyphone=#{companyphone},
+		</if>
+		<if test="companyemail != null">
+			companyemail=#{companyemail},
+		</if>
+		<if test="companyscale != null">
+			companyscale=#{companyscale},
+		</if>
+		<if test="companynet != null">
+			companynet=#{companynet},
+		</if>
+		<if test="companyimages != null">
+			companyimages=#{companyimages},
+		</if>
+		<if test="companyvideo != null">
+			companyvideo=#{companyvideo},
+		</if>
+		<if test="companydesc != null">
+			companydesc=#{companydesc},
+		</if>
+		<if test="companystate != null">
+			companystate=#{companystate},
+		</if>
+		<if test="companytype != null">
+			companytype=#{companytype}
+		</if>
+		WHERE
+		companyid=#{companyid}
+
+	</update>
+
+	<select id="queryJobsByCon" resultType="com.hsd.job.pojo.Job">
+		select * from job
+		where
+		<if test="jobname != null">
+			jobname=#{jobname},
+		</if>
+		<if test="jobaddr != null">
+			jobaddr=#{jobaddr},
+		</if>
+		<if test="jobpublishtime != null">
+			jobpublishtime=#{jobpublishtime},
+		</if>
+		<if test="jobsarary != null">
+			jobsarary=#{jobsarary},
+		</if>
+		<if test="jobstate != null">
+			jobstate=#{jobstate},
+		</if>
+		<if test="jobtype != null">
+			jobtype=#{jobtype},
+		</if>
+		<if test="companydesc != null">
+			companydesc=#{companydesc},
+		</if>
+		<if test="companystate != null">
+			companystate=#{companystate},
+		</if>
+		<if test="jobpublishuserid != null">
+			jobpublishuserid=#{jobpublishuserid}
+		</if>
+		limit
+		start = #{start},
+		end = #{end}
+	</select>
+
+	<select id="queryJobsBytypeid" parameterType="int"
+		resultType="com.hsd.job.pojo.Job">
+		select * from job
+		where
+		jobtype=#{typeid}
+	</select>
+
+	<select id="queryJobsAllByUserId" parameterType="int"
+		resultType="com.hsd.job.pojo.Job">
+		SELECT
+		job.*
+		from job,usercolljob ,userinfo
+		WHERE
+		job.JobId=usercolljob.JobId
+		AND userinfo.UserId=usercolljob.userId
+		AND
+		userinfo.UserId=#{userid}
+	</select>
+
+	<select id="indexJobsListTime" resultType="com.hsd.job.pojo.Job">
+		SELECT
+		job.*
+		from job
+		ORDER BY
+		jobpublishtime
+		desc
+		limit 1,12
+	</select>
+	<select id="indexJobsListSpecial" resultType="com.hsd.job.pojo.Job">
+		SELECT
+		job.*
+		from job
+		where
+		jobrequirement='无经验'
+		ORDER BY
+		jobpublishtime
+		desc
+		limit 1,12
+	</select>
+
+	<select id="companyJobsCount" resultType="com.hsd.job.pojo.CompanyVo">
+		SELECT count(*)
+		count,company.* FROM job,userinfo,company WHERE
+		job.JobPublishUserId=userinfo.UserId and
+		userinfo.UserCompanyId=company.CompanyId GROUP BY job.JobPublishUserId
+		limit 10
+	</select>
+	<!-- 无法获得返回的类型 -->
+	<select id="queryJobsByCompanyid" resultType="com.hsd.job.pojo.Job">
+		SELECT job.* FROM
+		company ,job,userinfo where
+		userinfo.UserId=job.JobPublishUserId AND
+		userinfo.UserCompanyId=company.CompanyId and CompanyId=#{companyid}
+	</select>
+
+	<select id="queryPostJobsByUserid" parameterType="int"
+		resultType="com.hsd.job.pojo.JobVo">
+		SELECT job.* FROM job WHERE job.JobPublishUserId=#{userid}
+	</select>
+	<select id="queryAJobApplyNum" parameterType="int" resultType="java.lang.Integer">
+		SELECT count(1) FROM userappjob WHERE JobId=#{jobid}
+	</select>
+
+	<select id="queryWhoAppJob" parameterType="int"
+		resultType="com.hsd.job.pojo.UserinfoVo">
+		SELECT userinfo.*,job.JobName
+		,job.JobId,userappjob.state,resumeinfo.ResumeUrl FROM
+		resumeinfo,userappjob,job,userinfo WHERE job.JobId=userappjob.jobId
+		AND resumeinfo.UserId=userinfo.UserId AND
+		userappjob.userId=userinfo.UserId and userappjob.jobId=#{jobid}
+	</select>
+
+	<select id="queryAuserApplyJobs" parameterType="int"
+		resultType="com.hsd.job.pojo.JobVo">
+		SELECT job.* FROM job,userappjob WHERE
+		job.JobId=userappjob.jobId AND
+		userappjob.userId=#{userid}
+	</select>
+
+	<select id="queryAuserCollJobs" parameterType="int"
+		resultType="com.hsd.job.pojo.JobVo">
+		SELECT job.* FROM job,usercolljob WHERE
+		job.JobId=usercolljob.jobId AND usercolljob.userId=#{userid}
+	</select>
+	<!-- 可以去除重复的数据 -->
+	<select id="queryAuserWhoJobs" parameterType="int"
+		resultType="com.hsd.job.pojo.UserinfoVo">
+		SELECT job.JobId,userappjob.state
+		applystate,job.JobName,userinfo.*, resumeinfo.ResumeUrl,count(distinct
+		job.JobId,userinfo.UserId) FROM resumeinfo,userappjob,userinfo,job
+		WHERE userinfo.UserId=resumeinfo.UserId AND
+		userinfo.UserId=userappjob.userId AND job.JobId=userappjob.jobId AND
+		job.JobPublishUserId=#{userid} group by job.JobName
+	</select>
+	<update id="updateStateApplyJob" parameterType="int">
+		UPDATE userappjob
+		SET state=1 WHERE userappjob.JobId=#{jobid} AND
+		userappjob.userId=#{userid}
+	</update>
+
+	<select id="queryPostMsgUser" parameterType="int" resultType="com.hsd.job.pojo.Userinfo">
+		SELECT userinfo.UserId,userinfo.UserName,userinfo.UserHead FROM
+		userinfo,message WHERE message.postuserid=userinfo.UserId AND
+		message.getuserid=#{userid} GROUP BY message.postuserid
+	</select>
+</mapper>

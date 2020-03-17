@@ -1,0 +1,5 @@
+0:0:0:0:0:0:0:1 - - [15/Feb/2019:15:40:48 +0800] "GET /JobRecruitment HTTP/1.1" 302 - http-bio-8080-exec-1 0
+0:0:0:0:0:0:0:1 - - [15/Feb/2019:15:40:49 +0800] "GET /JobRecruitment/ HTTP/1.1" 200 76461 http-bio-8080-exec-3 731
+0:0:0:0:0:0:0:1 - - [15/Feb/2019:15:40:49 +0800] "GET /JobRecruitment/assets/fonts/fa-regular-400.woff2 HTTP/1.1" 200 12220 http-bio-8080-exec-4 2
+0:0:0:0:0:0:0:1 - - [15/Feb/2019:15:41:18 +0800] "GET /JobRecruitment/index.jsp HTTP/1.1" 200 76461 http-bio-8080-exec-5 42
+0:0:0:0:0:0:0:1 - - [15/Feb/2019:15:41:29 +0800] "GET /JobRecruitment/about_us.jsp HTTP/1.1" 404 1005 http-bio-8080-exec-7 5
